@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Library_Api.Features.BookService.Query
 {
-    public class GetBookByTagQueryHandler : IRequestHandler<GetBookByTagQuery, List<BookDto>>
+    public class GetBookByTagQueryHandler : IRequestHandler<GetBookByTagQuery, PagedResult<BookDto>>
     {
         private readonly LibraryDbContext _dbContext;
 
@@ -19,7 +20,7 @@ namespace Library_Api.Features.BookService.Query
         {
             _dbContext = dbContext;
         }
-        public async Task<List<BookDto>> Handle(GetBookByTagQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<BookDto>> Handle(GetBookByTagQuery request, CancellationToken cancellationToken)
         {
             var tag= await _dbContext
                 .Tags
@@ -29,10 +30,32 @@ namespace Library_Api.Features.BookService.Query
             {
                 throw new NotFoundException("Tag not found");
             }
-            var books = await _dbContext
-                .Books
-                .Include(b => b.Tags)
-                .Where(b => b.Tags.Any(t => t.Name == tag.Name))
+            var baseQuery = _dbContext
+               .Books
+               .Include(b => b.Tags)
+               .Where(b => request.query.SearchPhrase == null
+               || (b.Tittle.ToLower().Contains(request.query.SearchPhrase.ToLower())
+               || b.Author.ToLower()
+               .Contains(request.query.SearchPhrase.ToLower())))
+               .Where(b=>b.Tags.Any(t=>t.Name==tag.Name));
+            if (!string.IsNullOrEmpty(request.query.SortBy))
+            {
+                var columnsSelectors = new Dictionary<string, Expression<Func<Book, object>>>
+                {
+                    { nameof(Book.Tittle), b => b.Tittle },
+                    { nameof(Book.Author), b => b.Author },
+
+                };
+
+                var selectedColumn = columnsSelectors[request.query.SortBy];
+
+                baseQuery = request.query.SortDirection == SortDirection.ASC
+                    ? baseQuery.OrderBy(selectedColumn)
+                    : baseQuery.OrderByDescending(selectedColumn);
+            }
+            var BooksDtos = await baseQuery
+                .Skip(request.query.PageSize * (request.query.PageNumber - 1))
+                .Take(request.query.PageSize)
                 .Select(Book => new BookDto()
                 {
                     Id = Book.Id,
@@ -42,9 +65,12 @@ namespace Library_Api.Features.BookService.Query
                     IsAvailable = Book.IsAvailable,
                     Tags = Book.Tags.Select(b => b.Name).ToList()
                 })
-                .AsNoTracking()
                 .ToListAsync();
-            return books;
+            var totalItemsCount = baseQuery.Count();
+            var result = new PagedResult<BookDto>(BooksDtos, totalItemsCount, request.query.PageSize, request.query.PageNumber);
+
+
+            return result;
         }
     }
 }

@@ -3,8 +3,9 @@ using MediatR;
 
 namespace Library_Api.Features.BookService.Query
 {
-    public class GetBookByTagQuery : IRequest<List<BookDto>>
+    public class GetBookByTagQuery : IRequest<PagedResult<BookDto>>
     {
+        public BookQuery query { get; set; }
         public int TagId { get; set; }
     }
 }
