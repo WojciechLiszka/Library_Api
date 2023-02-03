@@ -50,6 +50,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+builder.Services.AddScoped<IValidator<BookQuery>, BookQueryValidator>();
 builder.Services.AddDbContext<LibraryDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDbConnection")));
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());

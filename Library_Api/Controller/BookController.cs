@@ -11,7 +11,6 @@ namespace Library_Api.Controllers
 {
     [Route("api/Book")]
     [ApiController]
-    
     public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -22,14 +21,18 @@ namespace Library_Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetAllBooks()
+        public async Task<ActionResult<List<Book>>> GetBooks([FromQuery] BookQuery query)
         {
-            var request = new GetAllBooksQuery();
+            var request = new GetBooksQuery()
+            {
+                query = query
+            };
             var result = await _mediator.Send(request);
             return Ok(result);
         }
+
         [HttpPost]
-        [Authorize(Roles="Admin,Librarian")]
+        [Authorize(Roles = "Admin,Librarian")]
         public async Task<ActionResult> CreateBook([FromBody] CreateBookDto dto)
         {
             var request = new CreateBookCommand()

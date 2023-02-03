@@ -4,7 +4,8 @@ using MediatR;
 
 namespace Library_Api.Features.Query
 {
-    public class GetAllBooksQuery : IRequest<List<BookDto>>
+    public class GetBooksQuery : IRequest<PagedResult<BookDto>>
     {
+        public BookQuery query { get; set; }
     }
 }
