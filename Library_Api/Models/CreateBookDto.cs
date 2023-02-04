@@ -1,10 +1,7 @@
-﻿using Library_Api.Entity;
-
-namespace Library_Api.Models
+﻿namespace Library_Api.Models
 {
     public class CreateBookDto
     {
-        
         public string Tittle { get; set; }
         public string PhotoUrl { get; set; }
         public string Author { get; set; }

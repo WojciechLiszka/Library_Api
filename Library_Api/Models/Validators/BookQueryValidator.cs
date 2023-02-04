@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
 using Library_Api.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library_Api.Models.Validators
 {
@@ -14,6 +9,7 @@ namespace Library_Api.Models.Validators
 
         private string[] allowedSortByColumnNames =
             {nameof(Book.Tittle), nameof(Book.Author)};
+
         public BookQueryValidator()
         {
             RuleFor(r => r.PageNumber).GreaterThanOrEqualTo(1);
@@ -31,4 +27,3 @@ namespace Library_Api.Models.Validators
         }
     }
 }
-

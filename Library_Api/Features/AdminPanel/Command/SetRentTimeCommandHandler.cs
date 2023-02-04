@@ -6,10 +6,6 @@ namespace Library_Api.Features.AdminPanel.Command
     {
         private readonly Configuration _configuration = Configuration.GetInstance();
 
-        public SetRentTimeCommandHandler()
-        {
-        }
-
         public Task<Unit> Handle(SetRentTimeCommand request, CancellationToken cancellationToken)
         {
             _configuration.RentDays = request.Days;

@@ -19,7 +19,6 @@ namespace Library_Api.Controllers
         {
             _mediator = mediator;
         }
-
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBooks([FromQuery] BookQuery query)
         {

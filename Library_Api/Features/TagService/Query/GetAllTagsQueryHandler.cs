@@ -12,9 +12,10 @@ namespace Library_Api.Features.TagService.Query
         {
             _dbContext = dbContext;
         }
+
         public async Task<List<Tag>> Handle(GetAllTagsQuery request, CancellationToken cancellationToken)
         {
-            var Tags =await _dbContext
+            var Tags = await _dbContext
                 .Tags
                 .AsNoTracking()
                 .ToListAsync();

@@ -19,11 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
-
 var authenticationSettings = new AuthenticationSettings();
-
 builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
-
 builder.Services.AddSingleton(authenticationSettings);
 builder.Services.AddAuthentication(option =>
 {
@@ -62,7 +59,6 @@ var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<LibrarySeeder>();
 seeder.Seed();
 app.UseDeveloperExceptionPage();
-
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
