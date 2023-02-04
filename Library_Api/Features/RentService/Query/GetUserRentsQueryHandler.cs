@@ -1,11 +1,12 @@
 ﻿using Library_Api.Entity;
 using Library_Api.Exceptions;
+using Library_Api.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Api.Features.RentService.Query
 {
-    public class GetUserRentsQueryHandler : IRequestHandler<GetUserRentsQuery, List<Rent>>
+    public class GetUserRentsQueryHandler : IRequestHandler<GetUserRentsQuery, PagedResult<Rent>>
     {
         private readonly LibraryDbContext _dbContext;
 
@@ -14,9 +15,9 @@ namespace Library_Api.Features.RentService.Query
             _dbContext = dbContext;
         }
 
-        public async Task<List<Rent>> Handle(GetUserRentsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<Rent>> Handle(GetUserRentsQuery request, CancellationToken cancellationToken)
         {
-            var user =await _dbContext
+            var user = await _dbContext
                 .Users
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == request.userId);
@@ -24,12 +25,16 @@ namespace Library_Api.Features.RentService.Query
             {
                 throw new NotFoundException("User not found");
             }
-            var Rents = await _dbContext
+            var rents = await _dbContext
                 .Rents
                 .AsNoTracking()
+                .Skip(request.query.PageSize * (request.query.PageNumber - 1))
+                .Take(request.query.PageSize)
                 .Where(r => r.UserId == user.Id)
                 .ToListAsync();
-            return Rents;
+            var count = rents.Count();
+            var result = new PagedResult<Rent>(rents, count, request.query.PageSize, request.query.PageNumber);
+            return result;
         }
     }
 }

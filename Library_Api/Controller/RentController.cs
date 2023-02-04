@@ -19,13 +19,13 @@ namespace Library_Api.Controllers
         }
 
         [HttpPost]
-        [Route("{BookId}")]
+        [Route("{bookId}")]
         [Authorize(Roles = "Admin,Librarian")]
-        public async Task<ActionResult> RentBook([FromRoute] int BookId, [FromBody] int UserId)
+        public async Task<ActionResult> RentBook([FromRoute] int bookId, [FromBody] int UserId)
         {
             var request = new RentBookCommand()
             {
-                bookId = BookId,
+                bookId = bookId,
                 userId = UserId
             };
             await _mediator.Send(request);
@@ -46,16 +46,18 @@ namespace Library_Api.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("user/{id}")]
-        public async Task<ActionResult> GetUserRents([FromRoute] int id)
+        [Route("User/{id}")]
+        public async Task<ActionResult> GetUserRents([FromRoute] int id, [FromQuery] RentQuery query)
         {
             var reqest = new GetUserRentsQuery()
             {
-                userId = id
+                userId = id,
+                query = query
             };
             var result = await _mediator.Send(reqest);
             return Ok(result);
         }
+
         [HttpPut]
         [Route("{rentId}")]
         [Authorize(Roles = "Admin,Librarian")]
