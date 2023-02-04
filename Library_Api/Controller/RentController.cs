@@ -1,5 +1,6 @@
 ﻿using Library_Api.Features.RentService.Command;
 using Library_Api.Features.RentService.Query;
+using Library_Api.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,16 +34,32 @@ namespace Library_Api.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> GetAllRents()
+        public async Task<ActionResult> GetRents([FromQuery] RentQuery query)
         {
-            var request = new GetAllRentsQuery();
+            var request = new GetRentsQuery()
+            {
+                query = query
+            };
             var result = await _mediator.Send(request);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("user/{id}")]
+        public async Task<ActionResult> GetUserRents([FromRoute] int id)
+        {
+            var reqest = new GetUserRentsQuery()
+            {
+                userId = id
+            };
+            var result = await _mediator.Send(reqest);
             return Ok(result);
         }
         [HttpPut]
         [Route("{rentId}")]
         [Authorize(Roles = "Admin,Librarian")]
-        public async Task<ActionResult> ReturnBook([FromRoute]int rentId)
+        public async Task<ActionResult> ReturnBook([FromRoute] int rentId)
         {
             var reqest = new ReturnBookCommand()
             {

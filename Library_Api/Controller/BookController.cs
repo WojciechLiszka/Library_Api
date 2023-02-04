@@ -80,11 +80,12 @@ namespace Library_Api.Controllers
         }
 
         [HttpGet("Tag/{tagId}")]
-        public async Task<ActionResult<List<Book>>> GetBookByTag([FromRoute] int tagId)
+        public async Task<ActionResult<List<Book>>> GetBookByTag([FromRoute] int tagId, [FromQuery] BookQuery query)
         {
             var request = new GetBookByTagQuery()
             {
-                TagId = tagId
+                TagId = tagId,
+                query=query
             };
             var result = await _mediator.Send(request);
             return Ok(result);
