@@ -56,8 +56,8 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<LibrarySeeder>();
-seeder.Seed();
+var seeder = scope.ServiceProvider.GetRequiredService<LibrarySeeder>();// adds sample book and tags
+seeder.Seed();// adds sample book and tags
 app.UseDeveloperExceptionPage();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseSwagger();
@@ -68,3 +68,4 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
+public partial class Program { }

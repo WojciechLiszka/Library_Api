@@ -122,10 +122,9 @@ namespace Library_Api
                     Tags=_tags
                     .Skip(15)
                     .Take(2)
-                    .Skip(10)
-                    .Take(1)
-                    .ToList()
-                    
+                    .ToList(),
+                   
+
                 }, new Book()
                 {
                     Tittle="The Diary of a Young Girl",
