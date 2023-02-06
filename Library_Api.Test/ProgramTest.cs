@@ -1,14 +1,11 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Xunit;
 
 namespace Library_Api.Test
 {
-
     public class ProgramTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly List<Type> _controlllerTypes;
@@ -45,6 +42,3 @@ namespace Library_Api.Test
         }
     }
 }
-
-
-

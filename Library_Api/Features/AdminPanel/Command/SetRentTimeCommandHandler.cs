@@ -4,7 +4,7 @@ namespace Library_Api.Features.AdminPanel.Command
 {
     public class SetRentTimeCommandHandler : IRequestHandler<SetRentTimeCommand, Unit>
     {
-        private readonly Configuration _configuration = Configuration.GetInstance();
+        private readonly ApiConfiguration _configuration = ApiConfiguration.GetInstance();
 
         public Task<Unit> Handle(SetRentTimeCommand request, CancellationToken cancellationToken)
         {

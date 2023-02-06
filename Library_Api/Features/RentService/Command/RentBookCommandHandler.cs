@@ -9,12 +9,12 @@ namespace Library_Api.Features.RentService.Command
     public class RentBookCommandHandler : IRequestHandler<RentBookCommand, Unit>
     {
         private readonly LibraryDbContext _dbContext;
-        private readonly Configuration _configuration;
+        private readonly ApiConfiguration _configuration;
 
         public RentBookCommandHandler(LibraryDbContext dbContext)
         {
             _dbContext = dbContext;
-            _configuration = Configuration.GetInstance();
+            _configuration = ApiConfiguration.GetInstance();
         }
 
         public async Task<Unit> Handle(RentBookCommand request, CancellationToken cancellationToken)

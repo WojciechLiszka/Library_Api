@@ -1,23 +1,23 @@
 ﻿namespace Library_Api.Features.AdminPanel
 {
-    public class Configuration
+    public class ApiConfiguration
     {
-        private static Configuration _instance = null;
+        private static ApiConfiguration _instance = null;
         private static object obj = new object();
         public int RentDays { get; set; } = 14;//Default setting
         public double Latefee { get; set; } = 0.10;//Default setting
 
-        private Configuration()
+        private ApiConfiguration()
         {
         }
 
-        public static Configuration GetInstance()
+        public static ApiConfiguration GetInstance()
         {
             lock (obj)
             {
                 if (_instance == null)
                 {
-                    _instance = new Configuration();
+                    _instance = new ApiConfiguration();
                 }
             }
             return _instance;

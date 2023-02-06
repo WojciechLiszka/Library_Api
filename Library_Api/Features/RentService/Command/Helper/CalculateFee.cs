@@ -5,7 +5,7 @@ namespace Library_Api.Features.RentService.Command.Helper
 {
     public class CalculateFee
     {
-        private static readonly Configuration _configuration=Configuration.GetInstance();
+        private static readonly ApiConfiguration _configuration=ApiConfiguration.GetInstance();
         public static double Calculate(Rent rent)
         {
             if (DateTime.Now.CompareTo(rent.Ends) <= 0)
