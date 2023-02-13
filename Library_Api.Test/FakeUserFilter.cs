@@ -15,9 +15,7 @@ namespace Library_Api.Test
                     new Claim(ClaimTypes.NameIdentifier, "1"),
                     new Claim(ClaimTypes.Role, "Admin"),
                 }));
-
             context.HttpContext.User = claimsPrincipal;
-
             await next();
         }
     }
