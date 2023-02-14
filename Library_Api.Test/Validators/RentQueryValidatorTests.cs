@@ -1,47 +1,49 @@
-﻿using FluentValidation.TestHelper;
+﻿using Library_Api.Models.Validators;
 using Library_Api.Models;
-using Library_Api.Models.Validators;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
+using FluentValidation.TestHelper;
 
 namespace Library_Api.Test.Validators
 {
-    public class BookQueryValidatorTests
+    public class RentQueryValidatorTests
     {
         [Fact]
         public void Validate_ForValidModel_ReturnsSuccess()
         {
             // arrange
-            var model = new BookQuery()
+            var model = new RentQuery()
             {
-                SearchPhrase = "Test",
                 PageNumber = 1,
-                PageSize = 5,
-                SortBy = "Tittle",
-                SortDirection = SortDirection.ASC
+                PageSize = 5
             };
-            var validator = new BookQueryValidator();
+            var validator = new RentQueryValidator();
             // act
             var result = validator.TestValidate(model);
             // assert
             result.ShouldNotHaveAnyValidationErrors();
         }
+
         [Fact]
         public void Validate_ForInvalidModel_ReturnsFailure()
         {
             // arrange
-            var model = new BookQuery()
+            var model = new RentQuery()
             {
-                SearchPhrase = "Test",
                 PageNumber = 1,
                 PageSize = 7,
-                SortBy = "Tittle",
-                SortDirection = SortDirection.ASC
             };
-            var validator = new BookQueryValidator();
+            var validator = new RentQueryValidator();
             // act
             var result = validator.TestValidate(model);
             // assert
             result.ShouldHaveAnyValidationError();
         }
+        
+        
     }
 }
