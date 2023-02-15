@@ -162,5 +162,22 @@ namespace Library_Api.Test
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
+        [Fact]
+        public async Task GetBookById_WithInValidId_ReturnsNotFound()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            // act
+            var response = await _client.GetAsync("/api/Book/" + "987");
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
     }
 }
