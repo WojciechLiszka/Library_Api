@@ -14,7 +14,6 @@ namespace Library_Api.Test
     {
         private readonly HttpClient _client;
         private readonly WebApplicationFactory<Program> _factory;
-
         public BookControllerTests(WebApplicationFactory<Program> factory)
         {
             _factory = factory
@@ -37,7 +36,6 @@ namespace Library_Api.Test
                 });
             _client = _factory.CreateClient();
         }
-
         private void SeedBook(Book book)
         {
             var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
@@ -47,7 +45,6 @@ namespace Library_Api.Test
             _dbContext.Books.Add(book);
             _dbContext.SaveChanges();
         }
-
         [Fact]
         public async Task CreateBook_WithValidModel_ReturnsCreated()
         {
@@ -66,7 +63,6 @@ namespace Library_Api.Test
             // arrange
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
         }
-
         [Fact]
         public async Task UpdateBook_WithValidModelAndId_ReturnsOk()
         {
@@ -91,7 +87,6 @@ namespace Library_Api.Test
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
-
         [Fact]
         public async Task UpdateBook_WithValidModelandInvalId_ReturnsNotFound()
         {
@@ -116,7 +111,6 @@ namespace Library_Api.Test
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
-
         [Fact]
         public async Task DeleteBook_WithValidid_ReturnsNoContent()
         {
@@ -135,7 +129,7 @@ namespace Library_Api.Test
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
         }
         [Fact]
-        public async Task DeleteBook_WithInValidid_ReturnsNotFound()
+        public async Task DeleteBook_WithInValidId_ReturnsNotFound()
         {
             // arrange
             var book = new Book()
@@ -150,6 +144,23 @@ namespace Library_Api.Test
             var response = await _client.DeleteAsync("/api/Book/" + "987");
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
+        [Fact]
+        public async Task GetBookById_WithValidId_ReturnsOk()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            // act
+            var response= await _client.GetAsync("/api/Book/"+book.Id);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
     }
 }
