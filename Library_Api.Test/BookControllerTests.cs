@@ -84,12 +84,36 @@ namespace Library_Api.Test
                 Author = "UpdatedAuthor",
                 PublishDate = new DateTime(2001, 10, 5)
             };
-            var httpContent =model.ToJsonHttpContent();
+            var httpContent = model.ToJsonHttpContent();
             SeedBook(book);
             // act
-            var response = await _client.PutAsync("/api/Book/" + book.Id,httpContent);
+            var response = await _client.PutAsync("/api/Book/" + book.Id, httpContent);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+        [Fact]
+        public async Task UpdateBook_WithValidModelandInvalId_Returns()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            var model = new CreateBookDto()
+            {
+                Tittle = "UpdatedTittle",
+                Author = "UpdatedAuthor",
+                PublishDate = new DateTime(2001, 10, 5)
+            };
+            var httpContent = model.ToJsonHttpContent();
+            SeedBook(book);
+            // act
+            var response = await _client.PutAsync("/api/Book/" + "-1", httpContent);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
     }
 }
