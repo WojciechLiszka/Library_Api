@@ -16,7 +16,7 @@ namespace Library_Api
 
         public void Seed()
         {
-            if (_dbContext.Database.CanConnect())
+            if (_dbContext.Database.CanConnect()&&_dbContext.Database.IsRelational())
             {
                 var pendingMigrations = _dbContext.Database.GetPendingMigrations();
                 if (pendingMigrations != null && pendingMigrations.Any())
