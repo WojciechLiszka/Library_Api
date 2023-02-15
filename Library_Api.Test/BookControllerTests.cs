@@ -91,8 +91,9 @@ namespace Library_Api.Test
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
+
         [Fact]
-        public async Task UpdateBook_WithValidModelandInvalId_Returns()
+        public async Task UpdateBook_WithValidModelandInvalId_ReturnsNotFound()
         {
             // arrange
             var book = new Book()
@@ -111,7 +112,42 @@ namespace Library_Api.Test
             var httpContent = model.ToJsonHttpContent();
             SeedBook(book);
             // act
-            var response = await _client.PutAsync("/api/Book/" + "-1", httpContent);
+            var response = await _client.PutAsync("/api/Book/" + "987", httpContent);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public async Task DeleteBook_WithValidid_ReturnsNoContent()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            // act
+            var response = await _client.DeleteAsync("/api/Book/" + book.Id);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
+        }
+        [Fact]
+        public async Task DeleteBook_WithInValidid_ReturnsNotFound()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            // act
+            var response = await _client.DeleteAsync("/api/Book/" + "987");
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
