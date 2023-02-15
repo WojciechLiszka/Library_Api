@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Library_Api.Test
 {
-    public class BookControllerTests :IClassFixture<WebApplicationFactory<Program>>
+    public class BookControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
         private readonly WebApplicationFactory<Program> _factory;
@@ -63,10 +63,33 @@ namespace Library_Api.Test
 
             // act
             var response = await _client.PostAsync("/api/Book", httpContent);
-
             // arrange
-
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
+        }
+
+        [Fact]
+        public async Task UpdateBook_WithValidModelAndId_ReturnsOk()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            var model = new CreateBookDto()
+            {
+                Tittle = "UpdatedTittle",
+                Author = "UpdatedAuthor",
+                PublishDate = new DateTime(2001, 10, 5)
+            };
+            var httpContent =model.ToJsonHttpContent();
+            SeedBook(book);
+            // act
+            var response = await _client.PutAsync("/api/Book/" + book.Id,httpContent);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
     }
 }

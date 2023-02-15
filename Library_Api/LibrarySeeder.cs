@@ -122,8 +122,7 @@ namespace Library_Api
                     Tags=_tags
                     .Skip(15)
                     .Take(2)
-                    .ToList(),
-                   
+                    .ToList(),                   
 
                 }, new Book()
                 {
