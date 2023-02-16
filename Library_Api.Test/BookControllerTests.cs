@@ -193,13 +193,27 @@ namespace Library_Api.Test
         public async Task GetBooks_WitchValidQueryParams_ReturnsOk()
         {
             // arrange
-            var query ="SearchPhrase=Test&PageNumber=1&PageSize=5&SortBy=Tittle&SortDirection=ASC";
-            
-            
+            var query = "SearchPhrase=Test&PageNumber=1&PageSize=5&SortBy=Tittle&SortDirection=ASC";
+
+
             // act
-            var response = await _client.GetAsync("/api/Book?"+query);
+            var response = await _client.GetAsync("/api/Book?" + query);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+        }
+
+        [Fact]
+        public async Task GetBooks_WitchInValidQueryParams_ReturnsBadRequest()
+        {
+            // arrange
+            var query = "SearchPhrase=Test&PageNumber=1&PageSize=7&SortBy=Tittle&SortDirection=ASC";
+
+
+            // act
+            var response = await _client.GetAsync("/api/Book?" + query);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
     }
 }
