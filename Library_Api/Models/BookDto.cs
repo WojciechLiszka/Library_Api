@@ -11,4 +11,4 @@ namespace Library_Api.Models
         public List<string> Tags{ get; set; }
         public bool IsAvailable { get; set; }
     }
-}
+} 
