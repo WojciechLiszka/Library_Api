@@ -59,11 +59,6 @@ namespace Library_Api.Test.ControllersTests
         public async Task CreateTag_WitchUniqueName_ReturnsCreated()
         {
             // arrange
-            var tag = new Tag()
-            {
-                Name = "TestName"
-            };
-            SeedTag(tag);
             string newtagname = "UniqueName";
             var httpContent = newtagname.ToJsonHttpContent();
             // act
@@ -71,5 +66,22 @@ namespace Library_Api.Test.ControllersTests
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
         }
+        [Fact]
+        public async Task CreateTag_WitchNonUniqueName_ReturnsBadRequest()
+        {
+            // arrange
+            var tag = new Tag()
+            {
+                Name = "TestName"
+            };
+            SeedTag(tag);
+            string newtagname = "TestName";
+            var httpContent = newtagname.ToJsonHttpContent();
+            // act
+            var response = await _client.PostAsync($"/api/Tag", httpContent);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+        }
+
     }
 }
