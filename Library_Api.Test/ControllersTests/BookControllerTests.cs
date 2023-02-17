@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Library_Api.Test
+namespace Library_Api.Test.ControllersTests
 {
     public class BookControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
@@ -194,8 +194,6 @@ namespace Library_Api.Test
         {
             // arrange
             var query = "SearchPhrase=Test&PageNumber=1&PageSize=5&SortBy=Tittle&SortDirection=ASC";
-
-
             // act
             var response = await _client.GetAsync("/api/Book?" + query);
             // assert
@@ -208,8 +206,6 @@ namespace Library_Api.Test
         {
             // arrange
             var query = "SearchPhrase=Test&PageNumber=1&PageSize=7&SortBy=Tittle&SortDirection=ASC";
-
-
             // act
             var response = await _client.GetAsync("/api/Book?" + query);
             // assert
