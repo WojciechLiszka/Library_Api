@@ -32,7 +32,7 @@ namespace Library_Api.Test.ControllersTests
                         services.AddMvc(option => option.Filters.Add(new FakeUserFilter()));
 
                         services
-                         .AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("RestaurantDb"));
+                         .AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("Librarydb"));
                     });
                 });
             _client = _factory.CreateClient();

@@ -26,7 +26,7 @@ namespace Library_Api.Controllers
                 Name = name
             };
             var result =await _mediator.Send(request);
-            return Ok(result);
+            return Created($"/api/Tag/{result}",null);
         }
 
         [HttpPut("api/Book/{bookId}/Tag/{tagId}")]
