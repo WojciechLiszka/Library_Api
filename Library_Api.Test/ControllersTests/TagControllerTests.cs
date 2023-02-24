@@ -36,6 +36,7 @@ namespace Library_Api.Test.ControllersTests
                });
             _client = _factory.CreateClient();
         }
+
         private void SeedBook(Book book)
         {
             var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
@@ -45,6 +46,7 @@ namespace Library_Api.Test.ControllersTests
             _dbContext.Books.Add(book);
             _dbContext.SaveChanges();
         }
+
         private void SeedTag(Tag tag)
         {
             var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
@@ -54,6 +56,7 @@ namespace Library_Api.Test.ControllersTests
             _dbContext.Tags.Add(tag);
             _dbContext.SaveChanges();
         }
+
         [Fact]
         public async Task CreateTag_WitchUniqueName_ReturnsCreated()
         {
@@ -84,7 +87,7 @@ namespace Library_Api.Test.ControllersTests
         }
 
         [Fact]
-        public async Task GetAllTags_Ok()
+        public async Task GetAllTags_ReturnsOk()
         {
             // arrange
             var tag = new Tag()
@@ -96,6 +99,51 @@ namespace Library_Api.Test.ControllersTests
             var response = await _client.GetAsync($"/api/Tag");
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task AddTagToBook_WitchValidBookAndTagId_ReturnsOK()
+        {
+            // arrange
+            var tag = new Tag()
+            {
+                Name = "TestName"
+            };
+            SeedTag(tag);
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            // act
+            var response = await _client.PutAsync($"api/Book/{book.Id}/Tag/{tag.Id}", null);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+        [Fact]
+        public async Task AddTagToBook_WitchinValidBookAndTagId_ReturnsNotFound()
+        {
+            // arrange
+            var tag = new Tag()
+            {
+                Name = "TestName"
+            };
+            SeedTag(tag);
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            // act
+            var response = await _client.PutAsync($"api/Book/{999}/Tag/{976}", null);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
     }
 }
