@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library_Api.Exceptions
+﻿namespace Library_Api.Exceptions
 {
-    public class BadRequestException: Exception
+    public class BadRequestException : Exception
     {
-        public BadRequestException(string message) :base(message)
+        public BadRequestException(string message) : base(message)
         {
-
         }
     }
 }

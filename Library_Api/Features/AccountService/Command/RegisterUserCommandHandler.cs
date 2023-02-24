@@ -1,7 +1,6 @@
 ﻿using Library_Api.Entity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Library_Api.Features.AccountService.Command
 {
@@ -24,9 +23,8 @@ namespace Library_Api.Features.AccountService.Command
                 DateOfBirth = request.dto.DateOfBirth,
                 Nationality = request.dto.Nationality,
                 RoleId = request.dto.RoleId,
-                FirstName=request.dto.FirstName,
-                LastName=request.dto.LastName,
-                
+                FirstName = request.dto.FirstName,
+                LastName = request.dto.LastName,
             };
             var hashedPassword = _passwordHasher.HashPassword(newUser, request.dto.Password);
 

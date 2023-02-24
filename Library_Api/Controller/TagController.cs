@@ -4,7 +4,6 @@ using Library_Api.Features.TagService.Query;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace Library_Api.Controllers
 {
@@ -25,8 +24,8 @@ namespace Library_Api.Controllers
             {
                 Name = name
             };
-            var result =await _mediator.Send(request);
-            return Created($"/api/Tag/{result}",null);
+            var result = await _mediator.Send(request);
+            return Created($"/api/Tag/{result}", null);
         }
 
         [HttpPut("api/Book/{bookId}/Tag/{tagId}")]
@@ -41,7 +40,8 @@ namespace Library_Api.Controllers
             await _mediator.Send(request);
             return Ok();
         }
-        [HttpGet("api/Tag")] 
+
+        [HttpGet("api/Tag")]
         public async Task<ActionResult<List<Tag>>> GetAllTags()
         {
             var request = new GetAllTagsQuery();

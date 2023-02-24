@@ -5,7 +5,8 @@ namespace Library_Api.Features.RentService.Command.Helper
 {
     public class CalculateFee
     {
-        private static readonly ApiConfiguration _configuration=ApiConfiguration.GetInstance();
+        private static readonly ApiConfiguration _configuration = ApiConfiguration.GetInstance();
+
         public static double Calculate(Rent rent)
         {
             if (DateTime.Now.CompareTo(rent.Ends) <= 0)
@@ -16,7 +17,7 @@ namespace Library_Api.Features.RentService.Command.Helper
             {
                 var time = DateTime.Now - rent.Ends;
                 var days = (int)time.Days;
-                return days * _configuration.Latefee; 
+                return days * _configuration.Latefee;
             }
             TimeSpan span = (TimeSpan)(rent.ReturnDate - rent.Ends);
             var spandays = (int)span.Days;

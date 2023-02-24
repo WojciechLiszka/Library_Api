@@ -57,7 +57,6 @@ namespace Library_Api.Controllers
             var result = await _mediator.Send(reqest);
             return Ok(result);
         }
-
         [HttpPut]
         [Route("{rentId}")]
         [Authorize(Roles = "Admin,Librarian")]

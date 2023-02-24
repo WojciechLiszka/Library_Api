@@ -3,7 +3,6 @@ using Library_Api.Entity;
 using Library_Api.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Linq.Expressions;
 
 namespace Library_Api.Features.Query
@@ -21,7 +20,7 @@ namespace Library_Api.Features.Query
 
         public async Task<PagedResult<BookDto>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
-            var baseQuery =  _dbContext
+            var baseQuery = _dbContext
                 .Books
                 .Include(b => b.Tags)
                 .Where(b => request.query.SearchPhrase == null
@@ -34,7 +33,6 @@ namespace Library_Api.Features.Query
                 {
                     { nameof(Book.Tittle), b => b.Tittle },
                     { nameof(Book.Author), b => b.Author },
-                    
                 };
 
                 var selectedColumn = columnsSelectors[request.query.SortBy];
@@ -58,7 +56,6 @@ namespace Library_Api.Features.Query
                 .ToListAsync();
             var totalItemsCount = baseQuery.Count();
             var result = new PagedResult<BookDto>(BooksDtos, totalItemsCount, request.query.PageSize, request.query.PageNumber);
-
 
             return result;
         }

@@ -16,7 +16,6 @@ namespace Library_Api.Controller
         {
             _mediator = mediator;
         }
-
         [HttpPut]
         [Route("LateFee")]
         public async Task<ActionResult> SetLateTimeFee([FromBody] double fee)
@@ -28,7 +27,6 @@ namespace Library_Api.Controller
             await _mediator.Send(request);
             return Ok(request);
         }
-
         [HttpPut]
         [Route("RentTime")]
         public async Task<ActionResult> RentTime([FromBody] int days)

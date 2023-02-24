@@ -19,7 +19,7 @@ namespace Library_Api.Features.RentService.Query
             var rent = await _dbContext
                 .Rents
                 .FirstOrDefaultAsync(r => r.Id == request.rentId);
-            if(rent == null)
+            if (rent == null)
             {
                 throw new NotFoundException("Rent not found");
             }

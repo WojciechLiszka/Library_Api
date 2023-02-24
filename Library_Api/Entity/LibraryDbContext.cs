@@ -4,7 +4,7 @@ namespace Library_Api.Entity
 {
     public class LibraryDbContext : DbContext
     {
-        public LibraryDbContext(DbContextOptions<LibraryDbContext> options) :base(options)
+        public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
         {
         }
         public DbSet<User> Users { get; set; }
