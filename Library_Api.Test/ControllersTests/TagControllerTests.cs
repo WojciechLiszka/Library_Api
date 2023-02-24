@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
 using Xunit;
 
 namespace Library_Api.Test.ControllersTests
@@ -62,10 +61,11 @@ namespace Library_Api.Test.ControllersTests
             string newtagname = "UniqueName";
             var httpContent = newtagname.ToJsonHttpContent();
             // act
-            var response = await _client.PostAsync($"/api/Tag",httpContent);
+            var response = await _client.PostAsync($"/api/Tag", httpContent);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
         }
+
         [Fact]
         public async Task CreateTag_WitchNonUniqueName_ReturnsBadRequest()
         {
@@ -83,5 +83,19 @@ namespace Library_Api.Test.ControllersTests
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
 
+        [Fact]
+        public async Task GetAllTags_Ok()
+        {
+            // arrange
+            var tag = new Tag()
+            {
+                Name = "TestName"
+            };
+            SeedTag(tag);
+            // act
+            var response = await _client.GetAsync($"/api/Tag");
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
     }
 }
