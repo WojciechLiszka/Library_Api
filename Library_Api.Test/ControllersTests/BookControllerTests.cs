@@ -193,6 +193,14 @@ namespace Library_Api.Test.ControllersTests
         public async Task GetBooks_WitchValidQueryParams_ReturnsOk()
         {
             // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
             var query = "SearchPhrase=Test&PageNumber=1&PageSize=5&SortBy=Tittle&SortDirection=ASC";
             // act
             var response = await _client.GetAsync("/api/Book?" + query);
@@ -205,6 +213,14 @@ namespace Library_Api.Test.ControllersTests
         public async Task GetBooks_WitchInValidQueryParams_ReturnsBadRequest()
         {
             // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
             var query = "SearchPhrase=Test&PageNumber=1&PageSize=7&SortBy=Tittle&SortDirection=ASC";
             // act
             var response = await _client.GetAsync("/api/Book?" + query);
