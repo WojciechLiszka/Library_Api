@@ -82,10 +82,11 @@ namespace Library_Api.Test.ControllersTests
             SeedBook(book);
             var httpcontent = user.Id.ToJsonHttpContent();
             // act
-            var response = await _client.PostAsync($"/api/Rent/{book.Id}",httpcontent);
+            var response = await _client.PostAsync($"/api/Rent/{book.Id}", httpcontent);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
+
         [Fact]
         public async Task RentBook_WitchInValidUserOrBookId_ReturnsNotFound()
         {
@@ -115,6 +116,28 @@ namespace Library_Api.Test.ControllersTests
             var response = await _client.PostAsync($"/api/Rent/{1024}", httpcontent);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public async Task GetRents_WitchValidQueryAndUserId_ReturnsOk()
+        {
+            // arrange
+            var user = new User()
+            {
+                Email = "Test@test.com",
+                FirstName = "John",
+                LastName = "Doe",
+                DateOfBirth = new DateTime(1999, 4, 5),
+                Nationality = "German",
+                PasswordHash = "TestHash",
+                RoleId = 1
+            };
+            SeedUser(user);
+            var query = "PageNumber=1&PageSize=5";
+            // act
+            var response = await _client.GetAsync($"/api/Rent/User/{user.Id}?"+query);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
     }
 }
