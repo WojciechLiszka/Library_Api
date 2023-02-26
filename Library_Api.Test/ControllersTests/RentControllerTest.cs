@@ -57,6 +57,16 @@ namespace Library_Api.Test.ControllersTests
             _dbContext.SaveChanges();
         }
 
+        private void SeedRent(Rent rent)
+        {
+            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
+            var _dbContext = scope.ServiceProvider.GetService<LibraryDbContext>();
+
+            _dbContext.Rents.Add(rent);
+            _dbContext.SaveChanges();
+        }
+
         [Fact]
         public async Task RentBook_WitchValidUserAndBookId_ReturnsOk()
         {
@@ -135,10 +145,11 @@ namespace Library_Api.Test.ControllersTests
             SeedUser(user);
             var query = "PageNumber=1&PageSize=5";
             // act
-            var response = await _client.GetAsync($"/api/Rent/User/{user.Id}?"+query);
+            var response = await _client.GetAsync($"/api/Rent/User/{user.Id}?" + query);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
+
         [Fact]
         public async Task GetUserRents_WitchValidQueryAndInvalidUserId_ReturnsNotFound()
         {
@@ -160,6 +171,7 @@ namespace Library_Api.Test.ControllersTests
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
+
         [Fact]
         public async Task GetUserRents_WitchInValidQueryAndValidUserId_ReturnsBadRequest()
         {
@@ -180,6 +192,68 @@ namespace Library_Api.Test.ControllersTests
             var response = await _client.GetAsync($"/api/Rent/User/{user.Id}?" + query);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async Task GetRents_WitchValidQuery_ReturnsOk()
+        {
+            // arrange
+            var query = "PageNumber=1&PageSize=5";
+            // act
+            var response = await _client.GetAsync($"/api/Rent?" + query);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task GetRents_WitchInValidQuery_ReturnsBadRequest()
+        {
+            // arrange
+            var query = "PageNumber=1&PageSize=7";
+            // act
+            var response = await _client.GetAsync($"/api/Rent?" + query);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async Task ReturnBook_WitchValidBook_ReturnsOK()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            var user = new User()
+            {
+                Email = "Test@test.com",
+                FirstName = "John",
+                LastName = "Doe",
+                DateOfBirth = new DateTime(1999, 4, 5),
+                Nationality = "German",
+                PasswordHash = "TestHash",
+                RoleId = 1
+            };
+            SeedUser(user);
+            var rent = new Rent()
+            {
+                UserId = user.Id,
+                BookId = book.Id,
+                BookName = book.Tittle,
+                Starts = new DateTime(2022, 10, 7),
+                Ends = new DateTime(2022, 10, 21),
+                ReturnDate = null,
+                Fee = 0
+            };
+            SeedRent(rent);
+            // act
+            var response = await _client.PutAsync($"/api/Rent/{rent.Id}",null);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
     }
 }
