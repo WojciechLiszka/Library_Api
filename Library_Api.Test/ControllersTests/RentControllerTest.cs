@@ -200,7 +200,7 @@ namespace Library_Api.Test.ControllersTests
             // arrange
             var query = "PageNumber=1&PageSize=5";
             // act
-            var response = await _client.GetAsync($"/api/Rent?" + query);
+            var response = await _client.GetAsync("/api/Rent?" + query);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
@@ -211,13 +211,13 @@ namespace Library_Api.Test.ControllersTests
             // arrange
             var query = "PageNumber=1&PageSize=7";
             // act
-            var response = await _client.GetAsync($"/api/Rent?" + query);
+            var response = await _client.GetAsync("/api/Rent?" + query);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
 
         [Fact]
-        public async Task ReturnBook_WitchValidBook_ReturnsOK()
+        public async Task ReturnBook_WitchValidRent_ReturnsOK()
         {
             // arrange
             var book = new Book()
@@ -254,6 +254,45 @@ namespace Library_Api.Test.ControllersTests
             var response = await _client.PutAsync($"/api/Rent/{rent.Id}",null);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+        [Fact]
+        public async Task ReturnBook_WitchinValidRent_ReturnsBadRequest()
+        {
+            // arrange
+            var book = new Book()
+            {
+                Tittle = "TestTittle",
+                Author = "TestAuthor",
+                PublishDate = new DateTime(2010, 10, 5),
+                IsAvailable = true,
+            };
+            SeedBook(book);
+            var user = new User()
+            {
+                Email = "Test@test.com",
+                FirstName = "John",
+                LastName = "Doe",
+                DateOfBirth = new DateTime(1999, 4, 5),
+                Nationality = "German",
+                PasswordHash = "TestHash",
+                RoleId = 1
+            };
+            SeedUser(user);
+            var rent = new Rent()
+            {
+                UserId = user.Id,
+                BookId = book.Id,
+                BookName = book.Tittle,
+                Starts = new DateTime(2022, 10, 7),
+                Ends = new DateTime(2022, 10, 21),
+                ReturnDate = new DateTime(2022, 10, 21),
+                Fee = 0
+            };
+            SeedRent(rent);
+            // act
+            var response = await _client.PutAsync($"/api/Rent/{rent.Id}", null);
+            // assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
     }
 }
