@@ -119,7 +119,7 @@ namespace Library_Api.Test.ControllersTests
         }
 
         [Fact]
-        public async Task GetRents_WitchValidQueryAndUserId_ReturnsOk()
+        public async Task GetUserRents_WitchValidQueryAndUserId_ReturnsOk()
         {
             // arrange
             var user = new User()
@@ -140,7 +140,7 @@ namespace Library_Api.Test.ControllersTests
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
         [Fact]
-        public async Task GetRents_WitchValidQueryAndInvalidUserId_ReturnsNotFound()
+        public async Task GetUserRents_WitchValidQueryAndInvalidUserId_ReturnsNotFound()
         {
             // arrange
             var user = new User()
@@ -161,7 +161,7 @@ namespace Library_Api.Test.ControllersTests
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
         [Fact]
-        public async Task GetRents_WitchInValidQueryAndValidUserId_ReturnsBadRequest()
+        public async Task GetUserRents_WitchInValidQueryAndValidUserId_ReturnsBadRequest()
         {
             // arrange
             var user = new User()
