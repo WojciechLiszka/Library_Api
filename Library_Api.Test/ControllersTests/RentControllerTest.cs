@@ -251,10 +251,11 @@ namespace Library_Api.Test.ControllersTests
             };
             SeedRent(rent);
             // act
-            var response = await _client.PutAsync($"/api/Rent/{rent.Id}",null);
+            var response = await _client.PutAsync($"/api/Rent/{rent.Id}", null);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
+
         [Fact]
         public async Task ReturnBook_WitchinValidRent_ReturnsBadRequest()
         {

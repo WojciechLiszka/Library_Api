@@ -48,6 +48,16 @@ namespace Library_Api.Test.ControllersTests
             _dbContext.SaveChanges();
         }
 
+        private void SeedTag(Tag tag)
+        {
+            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
+            var _dbContext = scope.ServiceProvider.GetService<LibraryDbContext>();
+
+            _dbContext.Tags.Add(tag);
+            _dbContext.SaveChanges();
+        }
+
         [Fact]
         public async Task CreateBook_WithValidModel_ReturnsCreated()
         {
@@ -206,7 +216,6 @@ namespace Library_Api.Test.ControllersTests
             var response = await _client.GetAsync("/api/Book?" + query);
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
-
         }
 
         [Fact]
@@ -227,6 +236,5 @@ namespace Library_Api.Test.ControllersTests
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
-        
     }
 }
