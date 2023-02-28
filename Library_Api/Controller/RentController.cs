@@ -21,6 +21,7 @@ namespace Library_Api.Controllers
         [HttpPost]
         [Route("{bookId}")]
         [Authorize(Roles = "Admin,Librarian")]
+            [ProducesDefaultResponseType]
         public async Task<ActionResult> RentBook([FromRoute] int bookId, [FromBody] int UserId)
         {
             var request = new RentBookCommand()
@@ -34,6 +35,7 @@ namespace Library_Api.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> GetRents([FromQuery] RentQuery query)
         {
             var request = new GetRentsQuery()
@@ -47,6 +49,7 @@ namespace Library_Api.Controllers
         [HttpGet]
         [Authorize]
         [Route("User/{id}")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> GetUserRents([FromRoute] int id, [FromQuery] RentQuery query)
         {
             var reqest = new GetUserRentsQuery()
@@ -60,6 +63,7 @@ namespace Library_Api.Controllers
         [HttpPut]
         [Route("{rentId}")]
         [Authorize(Roles = "Admin,Librarian")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> ReturnBook([FromRoute] int rentId)
         {
             var reqest = new ReturnBookCommand()

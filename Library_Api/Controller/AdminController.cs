@@ -18,6 +18,7 @@ namespace Library_Api.Controller
         }
         [HttpPut]
         [Route("LateFee")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> SetLateTimeFee([FromBody] double fee)
         {
             var request = new SetLateTimeFeeCommand()
@@ -29,6 +30,7 @@ namespace Library_Api.Controller
         }
         [HttpPut]
         [Route("RentTime")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> RentTime([FromBody] int days)
         {
             var request = new SetRentTimeCommand()

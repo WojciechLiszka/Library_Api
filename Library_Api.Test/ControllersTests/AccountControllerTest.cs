@@ -22,11 +22,9 @@ namespace Library_Api.Test.ControllersTests
                     builder.ConfigureServices(services =>
                     {
                         var dbContextOptions = services
-                            .SingleOrDefault(service => service.ServiceType == typeof(DbContextOptions<LibraryDbContext>));
-
+                            .SingleOrDefault(service => service.ServiceType == typeof(DbContextOptions<LibraryDbContext>)); 
                         services.Remove(dbContextOptions);
                         services.AddMvc(option => option.Filters.Add(new FakeUserFilter()));
-
                         services
                          .AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("Librarydb"));
                     });
@@ -65,6 +63,7 @@ namespace Library_Api.Test.ControllersTests
             // assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
+
         [Fact]
         public async Task RegisterUser_ForInvalidRegisterUserDto_ReturnsBadRequest()
         {

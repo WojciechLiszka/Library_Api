@@ -18,6 +18,8 @@ namespace Library_Api.Controllers
         }
 
         [HttpPost("api/Tag")]
+        [Authorize(Roles = "Admin,Librarian")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> CreateTag([FromBody] string name)
         {
             var request = new CreateTagCommand()
@@ -30,6 +32,7 @@ namespace Library_Api.Controllers
 
         [HttpPut("api/Book/{bookId}/Tag/{tagId}")]
         [Authorize(Roles = "Admin,Librarian")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> AddTagToBook([FromRoute] int bookId, [FromRoute] int tagId)
         {
             var request = new AddTagToBookCommand()
@@ -42,6 +45,7 @@ namespace Library_Api.Controllers
         }
 
         [HttpGet("api/Tag")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<Tag>>> GetAllTags()
         {
             var request = new GetAllTagsQuery();

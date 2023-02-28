@@ -20,6 +20,7 @@ namespace Library_Api.Controllers
             _mediator = mediator;
         }
         [HttpGet]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<Book>>> GetBooks([FromQuery] BookQuery query)
         {
             var request = new GetBooksQuery()
@@ -32,6 +33,7 @@ namespace Library_Api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin,Librarian")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> CreateBook([FromBody] CreateBookDto dto)
         {
             var request = new CreateBookCommand()
@@ -44,6 +46,7 @@ namespace Library_Api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Librarian")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteBook([FromRoute] int id)
         {
             var request = new DeleteBookCommand()
@@ -56,6 +59,7 @@ namespace Library_Api.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Librarian")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateBook([FromRoute] int id, [FromBody] CreateBookDto dto)
         {
             var request = new UpdateBookCommand()
@@ -68,6 +72,7 @@ namespace Library_Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> GetBookById([FromRoute] int id)
         {
             var request = new GetBookByIdQuery()
@@ -79,6 +84,7 @@ namespace Library_Api.Controllers
         }
 
         [HttpGet("Tag/{tagId}")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<Book>>> GetBookByTag([FromRoute] int tagId, [FromQuery] BookQuery query)
         {
             var request = new GetBookByTagQuery()

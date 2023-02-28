@@ -17,6 +17,7 @@ namespace Library_Api.Controllers
         }
 
         [HttpPost("Register")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> RegisterUser(RegisterUserDto dto)
         {
             var request = new RegisterUserCommand()
@@ -28,6 +29,7 @@ namespace Library_Api.Controllers
         }
 
         [HttpPost("Login")]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Login([FromBody] LoginDto dto)
         {
             var request = new LoginUserCommand()
