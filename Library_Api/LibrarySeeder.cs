@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Library_Api.Entity;
+﻿using Library_Api.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Api
@@ -16,7 +15,7 @@ namespace Library_Api
 
         public void Seed()
         {
-            if (_dbContext.Database.CanConnect()&&_dbContext.Database.IsRelational())
+            if (_dbContext.Database.CanConnect() && _dbContext.Database.IsRelational())
             {
                 var pendingMigrations = _dbContext.Database.GetPendingMigrations();
                 if (pendingMigrations != null && pendingMigrations.Any())
@@ -72,97 +71,54 @@ namespace Library_Api
             {
                 new Book()
                 {
-                    Tittle="To Kill a Mockingbird",
-                    Author="Harper Lee",
-                    PublishDate=new DateTime(1960,1,1),
+                    Tittle="The Great Gatsby",
+                    Author="Scott Fitzgerald",
+                    PublishDate=new DateTime(1925,4,10),
                     Tags=_tags
                     .Take(3)
                     .ToList()
-                }, new Book()
+                },
+
+                new Book()
                 {
-                    Tittle="Pride and Prejudice",
-                    Author="Jane Austen",
-                    PublishDate=new DateTime(1813,1,1),
+                    Tittle="The Hunger Games",
+                    Author="Suzanne Collins",
+                    PublishDate=new DateTime(2008,9,14),
                     Tags=_tags
                     .Skip(3)
                     .Take(3)
                     .ToList()
-                }, new Book()
+                },
+                new Book()
                 {
-                    Tittle="The Great Gatsby",
-                    Author="Scott Fitzgerald",
-                    PublishDate=new DateTime(1925,1,1),
+                    Tittle="The Catcher in the Rye",
+                    Author="J.D. Salinger",
+                    PublishDate=new DateTime(1951,7,16),
                     Tags=_tags
                     .Skip(6)
                     .Take(3)
                     .ToList()
-                }, new Book()
+                },
+                new Book()
                 {
-                    Tittle="1984",
-                    Author="George Orwell",
-                    PublishDate=new DateTime(1949,1,1),
+                    Tittle="The Da Vinci Code",
+                    Author="Dan Brown",
+                    PublishDate=new DateTime(2003,3,18),
                     Tags=_tags
                     .Skip(9)
                     .Take(3)
                     .ToList()
-                }, new Book()
+                },
+                new Book()
                 {
-                    Tittle="One Hundred Years of Solitude",
-                    Author="Gabriel Garcia Marquez",
-                    PublishDate=new DateTime(1967,1,1),
+                    Tittle="The Hitchhiker's Guide to the Galaxy",
+                    Author="Douglas Adams",
+                    PublishDate=new DateTime(1979,10,12),
                     Tags=_tags
                     .Skip(12)
                     .Take(3)
                     .ToList()
-                }, new Book()
-                {
-                    Tittle="Moby-Dick",
-                    Author="Herman Melville",
-                    PublishDate=new DateTime(1851,1,1),
-                    Tags=_tags
-                    .Skip(15)
-                    .Take(2)
-                    .ToList(),                   
-
-                }, new Book()
-                {
-                    Tittle="The Diary of a Young Girl",
-                    Author="Anne Frank",
-                    PublishDate=new DateTime(1947,1,1),
-                    Tags=_tags
-                    .Skip(17)
-                    .Take(3)
-                    .ToList()
-                }, new Book()
-                {
-                    Tittle="The Catcher in the Rye",
-                    Author="J.D. Salinger",
-                    PublishDate=new DateTime(1951,1,1),
-                    Tags=_tags
-                    .Skip(20)
-                    .Take(3)
-                    .ToList()
-                }, new Book()
-                {
-                    Tittle="The Lord of the Rings",
-                    Author="J.R.R. Tolkien",
-                    PublishDate=new DateTime(1955,1,1),
-                    Tags=_tags
-                    .Skip(23)
-                    .Take(3)
-                    .ToList()
-                }, new Book()
-                {
-                    Tittle="The Adventures of Huckleberry Finn",
-                    Author="Jane Austen",
-                    PublishDate=new DateTime(1813,1,1),
-                    Tags=_tags
-                    .Skip(15)
-                    .Take(1)
-                    .Skip(10)
-                    .Take(2)
-                    .ToList()
-                }
+                },
             };
             return books;
         }
@@ -173,95 +129,64 @@ namespace Library_Api
             {
                 new Tag()
                 {
-                    Name="Fiction"
+                    Name="literature"
                 },
                 new Tag()
                 {
-                    Name="Race relations"
+                    Name="jazz age"
+                },
+                 new Tag()
+                {
+                    Name="romance"
+                },
+                 new Tag()
+                {
+                    Name="young adult"
                 },
                 new Tag()
                 {
-                    Name="Southern literature"
+                    Name="dystopian"
+                },
+                 new Tag()
+                {
+                    Name="action"
+                },
+                 new Tag()
+                {
+                    Name="coming of age"
                 },
                 new Tag()
                 {
-                    Name="Romance"
-                },new Tag()
+                    Name="bildungsroman"
+                },
+                 new Tag()
                 {
-                    Name="Regency era"
-                },new Tag()
+                    Name="modern classic"
+                },
+                 new Tag()
                 {
-                    Name="Classic literature"
-                },new Tag()
-                {
-                    Name="Jazz Age"
+                    Name="thriller"
                 },
                 new Tag()
                 {
-                    Name="The American Dream"
-                },new Tag()
+                    Name="conspiracy"
+                },
+                 new Tag()
                 {
-                    Name="Social critique"
-                },new Tag()
+                    Name="art history"
+                },
+                 new Tag()
                 {
-                    Name="Dystopian fiction"
-                },new Tag()
-                {
-                    Name="Political satire"
-                },new Tag()
-                {
-                    Name="Totalitarianism"
-                },new Tag()
-                {
-                    Name="Magical realism"
-                },new Tag()
-                {
-                    Name="Colombian literature"
-                },new Tag()
-                {
-                    Name="Family saga"
-                },new Tag()
-                {
-                    Name="American literature"
-                },new Tag()
-                {
-                    Name="Whaling industry"
-                },new Tag()
-                {
-                    Name="Holocaust"
-                },new Tag()
-                {
-                    Name="World War II"
-                },new Tag()
-                {
-                    Name="Jewish history"
-                },new Tag()
-                {
-                    Name="Coming of age"
-                },new Tag()
-                {
-                    Name="Absurdism"
-                },new Tag()
-                {
-                    Name="Teenage rebellion"
+                    Name="science fiction"
                 },
                 new Tag()
                 {
-                    Name="Fantasy"
-                },new Tag()
-                {
-                    Name="High fantasy"
+                    Name="humor"
                 },
-                new Tag()
+                 new Tag()
                 {
-                    Name="Epic literature"
-                },new Tag()
-                {
-                    Name="Adventure"
-                },new Tag()
-                {
-                    Name="Slavery and racism"
-                }
+                    Name="satire"
+                },
             };
             return tags;
         }

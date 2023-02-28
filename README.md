@@ -32,12 +32,7 @@ The Library_Api is a .Net6 project wich creates sample REST Api to menage web li
 - [GithubActions](github.com)-CI
 - [JWT.Net](https://github.com/jwt-dotnet/jwt) - authorisation and authentication
 - [XUnit](https://xunit.net)- for testing
-# How to run 
-- Download project
-- Open console in project directory
-- Type command:cd Library_Api
-- Type command:dotnet restore Library_Api.csproj
-- Type command:dotnet run Library_Api.csproj
+
 
 
 
