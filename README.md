@@ -31,6 +31,7 @@ The Library_Api is a .Net6 project wich creates sample REST Api to menage web li
 - [Newtonsoft.Json](https://www.newtonsoft.com/json) -Easier JSON file
 - [GithubActions](github.com)-CI
 - [JWT.Net](https://github.com/jwt-dotnet/jwt) - authorisation and authentication
+- [XUnit](https://xunit.net)- for testing
 # How to run 
 - Download project
 - Open console in project directory
