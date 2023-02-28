@@ -19,4 +19,4 @@ jobs:
       - name: Build
         run: dotnet build --no-restore Library_Api/Library_Api.csproj
       - name: Test
-        run: dotnet test Library_Api/Library_Api.csproj
+        run: dotnet test Library_Api.Test/Library_Api.Test.csproj
