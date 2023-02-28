@@ -22,15 +22,22 @@ The Library_Api is a .Net6 project wich creates sample REST Api to menage web li
 - Menage basic rent time
 - Menage late time fee
 # Stack
-- [.Net6 witch C#10] (https://github.com/dotnet)
+- [.Net6 witch C#10](https://github.com/dotnet)
 - [Entity Framework Core](https://github.com/dotnet/efcore) - ORM 
 - [MediatR](https://github.com/jbogard/MediatR) - for CQRS architecture
 - [FluentValidation](https://github.com/FluentValidation/FluentValidation) - for validation
 - [SqlServer](https://www.microsoft.com/pl-pl/sql-server) - SqlDatabase
 - [NLog](https://nlog-project.org) - Logging
 - [Newtonsoft.Json](https://www.newtonsoft.com/json) -Easier JSON file
-- [GithubActions]-CI
+- [GithubActions](github.com)-CI
 - [JWT.Net](https://github.com/jwt-dotnet/jwt) - authorisation and authentication
+# How to run 
+- Download project
+- Open console in project directory
+- Type command:cd Library_Api
+- Type command:dotnet restore Library_Api.csproj
+- Type command:dotnet run Library_Api.csproj
+
 
 
 
