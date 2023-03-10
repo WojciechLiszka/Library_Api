@@ -78,7 +78,6 @@ namespace Library_Api
                     .Take(3)
                     .ToList()
                 },
-
                 new Book()
                 {
                     Tittle="The Hunger Games",

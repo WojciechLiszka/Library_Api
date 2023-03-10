@@ -21,6 +21,7 @@ builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
 var authenticationSettings = new AuthenticationSettings();
 builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
 builder.Services.AddSingleton(authenticationSettings);
 builder.Services.AddAuthentication(option =>
 {
@@ -41,7 +42,9 @@ builder.Services.AddAuthentication(option =>
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<LibrarySeeder>();
 builder.Services.AddControllers().AddFluentValidation();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
@@ -54,10 +57,13 @@ builder.Services.AddDbContext<LibraryDbContext>
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
+
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<LibrarySeeder>();// adds sample book and tags
 seeder.Seed();// adds sample book and tags
+
 app.UseDeveloperExceptionPage();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseSwagger();
@@ -68,4 +74,6 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
-public partial class Program { }
+
+public partial class Program
+{ }
