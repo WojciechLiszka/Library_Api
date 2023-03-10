@@ -19,7 +19,8 @@ namespace Library_Api.Features.Command
         {
             var book = _mapper.Map<Book>(request.Dto);
             await _dbContext.Books.AddAsync(book);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
             return book.Id;
         }
     }

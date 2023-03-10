@@ -49,7 +49,8 @@ namespace Library_Api.Features.RentService.Command
             };
             _dbContext.Rents.Add(rent);
             book.IsAvailable = false;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
             return Unit.Value;
         }
     }

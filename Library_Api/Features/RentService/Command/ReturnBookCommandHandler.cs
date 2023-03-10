@@ -39,6 +39,8 @@ namespace Library_Api.Features.RentService.Command
                 throw new SystemError("System Error invalid Rent data");
             }
             book.IsAvailable = true;
+            await _dbContext.SaveChangesAsync();
+
             return rent.Fee;
         }
     }

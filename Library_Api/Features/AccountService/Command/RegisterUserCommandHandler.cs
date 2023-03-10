@@ -30,7 +30,8 @@ namespace Library_Api.Features.AccountService.Command
 
             newUser.PasswordHash = hashedPassword;
             await _dbContext.Users.AddAsync(newUser);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+
             return Unit.Value;
         }
     }

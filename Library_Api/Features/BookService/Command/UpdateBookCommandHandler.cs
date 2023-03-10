@@ -26,10 +26,12 @@ namespace Library_Api.Features.Command
             {
                 throw new NotFoundException("Book not found");
             }
+
             book.Author = request.Dto.Author;
             book.PublishDate = request.Dto.PublishDate;
             book.Tittle = request.Dto.Tittle;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+           
             return (Unit.Value);
         }
     }

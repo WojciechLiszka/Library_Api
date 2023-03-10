@@ -28,7 +28,7 @@ namespace Library_Api.Features.Command
                 throw new NotFoundException("Book not found");
             }
             _dbContext.Books.Remove(book);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return Unit.Value;
         }

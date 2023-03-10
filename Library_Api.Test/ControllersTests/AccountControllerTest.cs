@@ -22,7 +22,7 @@ namespace Library_Api.Test.ControllersTests
                     builder.ConfigureServices(services =>
                     {
                         var dbContextOptions = services
-                            .SingleOrDefault(service => service.ServiceType == typeof(DbContextOptions<LibraryDbContext>)); 
+                            .SingleOrDefault(service => service.ServiceType == typeof(DbContextOptions<LibraryDbContext>));
                         services.Remove(dbContextOptions);
                         services.AddMvc(option => option.Filters.Add(new FakeUserFilter()));
                         services
@@ -30,16 +30,6 @@ namespace Library_Api.Test.ControllersTests
                     });
                 });
             _client = _factory.CreateClient();
-        }
-
-        private void SeedUser(User user)
-        {
-            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
-            using var scope = scopeFactory.CreateScope();
-            var _dbContext = scope.ServiceProvider.GetService<LibraryDbContext>();
-
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
         }
 
         [Fact]
