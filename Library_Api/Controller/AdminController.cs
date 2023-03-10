@@ -23,7 +23,7 @@ namespace Library_Api.Controller
         {
             var request = new SetLateTimeFeeCommand()
             {
-                fee = fee
+                Fee = fee
             };
             await _mediator.Send(request);
             return Ok(request);

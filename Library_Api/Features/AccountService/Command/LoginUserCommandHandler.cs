@@ -27,14 +27,14 @@ namespace Library_Api.Features.AccountService.Command
         {
             var user = await _dbContext.Users
                .Include(u => u.Role)
-               .FirstOrDefaultAsync(u => u.Email == request.dto.Email);
+               .FirstOrDefaultAsync(u => u.Email == request.Dto.Email);
 
             if (user is null)
             {
                 throw new BadRequestException("Invalid username or password");
             }
 
-            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.dto.Password);
+            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Dto.Password);
             if (result == PasswordVerificationResult.Failed)
             {
                 throw new BadRequestException("Invalid username or password");

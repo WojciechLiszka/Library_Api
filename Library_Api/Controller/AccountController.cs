@@ -22,7 +22,7 @@ namespace Library_Api.Controllers
         {
             var request = new RegisterUserCommand()
             {
-                dto = dto
+                Dto = dto
             };
             await _mediator.Send(request);
             return Ok();
@@ -34,7 +34,7 @@ namespace Library_Api.Controllers
         {
             var request = new LoginUserCommand()
             {
-                dto = dto
+                Dto = dto
             };
             var result = await _mediator.Send(request);
             return Ok(result);

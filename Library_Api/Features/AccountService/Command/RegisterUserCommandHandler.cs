@@ -19,14 +19,14 @@ namespace Library_Api.Features.AccountService.Command
         {
             var newUser = new User()
             {
-                Email = request.dto.Email,
-                DateOfBirth = request.dto.DateOfBirth,
-                Nationality = request.dto.Nationality,
-                RoleId = request.dto.RoleId,
-                FirstName = request.dto.FirstName,
-                LastName = request.dto.LastName,
+                Email = request.Dto.Email,
+                DateOfBirth = request.Dto.DateOfBirth,
+                Nationality = request.Dto.Nationality,
+                RoleId = request.Dto.RoleId,
+                FirstName = request.Dto.FirstName,
+                LastName = request.Dto.LastName,
             };
-            var hashedPassword = _passwordHasher.HashPassword(newUser, request.dto.Password);
+            var hashedPassword = _passwordHasher.HashPassword(newUser, request.Dto.Password);
 
             newUser.PasswordHash = hashedPassword;
             await _dbContext.Users.AddAsync(newUser);

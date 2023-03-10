@@ -5,6 +5,6 @@ namespace Library_Api.Features.AccountService.Command
 {
     public class LoginUserCommand : IRequest<string>
     {
-        public LoginDto dto { get; set; }
+        public LoginDto Dto { get; set; }
     }
 }

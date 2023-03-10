@@ -30,7 +30,7 @@ namespace Library_Api.Controllers
             return Created($"/api/Tag/{result}", null);
         }
 
-        [HttpPut("api/Book/{bookId}/Tag/{tagId}")]
+        [HttpPut("api/Book/{BookId}/Tag/{tagId}")]
         [Authorize(Roles = "Admin,Librarian")]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> AddTagToBook([FromRoute] int bookId, [FromRoute] int tagId)

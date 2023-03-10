@@ -21,14 +21,14 @@ namespace Library_Api.Features.RentService.Command
         {
             var user = await _dbContext
                 .Users
-                .FirstOrDefaultAsync(u => u.Id == request.userId);
+                .FirstOrDefaultAsync(u => u.Id == request.UserId);
             if (user == null)
             {
                 throw new NotFoundException("User not found");
             }
             var book = await _dbContext
                 .Books
-                .FirstOrDefaultAsync(b => b.Id == request.bookId);
+                .FirstOrDefaultAsync(b => b.Id == request.BookId);
             if (book == null)
             {
                 throw new NotFoundException("Book not found");
@@ -39,8 +39,8 @@ namespace Library_Api.Features.RentService.Command
             }
             var rent = new Rent()
             {
-                UserId = request.userId,
-                BookId = request.bookId,
+                UserId = request.UserId,
+                BookId = request.BookId,
                 BookName = book.Tittle,
                 Starts = DateTime.Now,
                 Ends = DateTime.Now.AddDays(_configuration.RentDays),

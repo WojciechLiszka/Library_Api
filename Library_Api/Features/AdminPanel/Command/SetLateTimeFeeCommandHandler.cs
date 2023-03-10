@@ -8,7 +8,7 @@ namespace Library_Api.Features.AdminPanel.Command
 
         public Task<Unit> Handle(SetLateTimeFeeCommand request, CancellationToken cancellationToken)
         {
-            _configuration.Latefee = request.fee;
+            _configuration.Latefee = request.Fee;
             return Task.FromResult(Unit.Value);
         }
     }

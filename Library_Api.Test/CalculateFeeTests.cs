@@ -12,10 +12,10 @@ namespace Library_Api.Features.RentService.Tests
         public void Calculate_WhenReturnDateIsNullAndEndsDateIsInTheFuture_ShouldReturnZero()
         {
             // Arrange
-            Rent rent = new Rent { Ends = DateTime.Now.AddDays(10), ReturnDate = null };
+            var rent = new Rent { Ends = DateTime.Now.AddDays(10), ReturnDate = null };
 
             // Act
-            double result = CalculateFee.Calculate(rent);
+            var result = CalculateFee.Calculate(rent);
 
             // Assert
             result.Should().Be(0);
@@ -25,11 +25,11 @@ namespace Library_Api.Features.RentService.Tests
         public void Calculate_WhenReturnDateIsNullAndEndsDateIsInThePast_ShouldReturnLateFee()
         {
             // Arrange
-            Rent rent = new Rent { Ends = DateTime.Now.AddDays(-10), ReturnDate = null };
+            var rent = new Rent { Ends = DateTime.Now.AddDays(-10), ReturnDate = null };
             double expectedResult = 10 * ApiConfiguration.GetInstance().Latefee;
 
             // Act
-            double result = CalculateFee.Calculate(rent);
+            var result = CalculateFee.Calculate(rent);
 
             // Assert
             result.Should().Be(expectedResult);
@@ -39,8 +39,8 @@ namespace Library_Api.Features.RentService.Tests
         public void Calculate_WhenReturnDateIsNotNull_ShouldReturnLateFee()
         {
             // Arrange
-            Rent rent = new Rent { Ends = DateTime.Now.AddDays(-10), ReturnDate = DateTime.Now.AddDays(-5) };
-            double expectedResult = 5 * ApiConfiguration.GetInstance().Latefee;
+            var rent = new Rent { Ends = DateTime.Now.AddDays(-10), ReturnDate = DateTime.Now.AddDays(-5) };
+            var expectedResult = 5 * ApiConfiguration.GetInstance().Latefee;
 
             // Act
             double result = CalculateFee.Calculate(rent);

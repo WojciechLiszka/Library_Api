@@ -61,7 +61,7 @@ namespace Library_Api.Test.ControllersTests
         public async Task CreateTag_WitchUniqueName_ReturnsCreated()
         {
             // arrange
-            string newtagname = "UniqueName";
+            var newtagname = "UniqueName";
             var httpContent = newtagname.ToJsonHttpContent();
             // act
             var response = await _client.PostAsync($"/api/Tag", httpContent);
@@ -78,7 +78,7 @@ namespace Library_Api.Test.ControllersTests
                 Name = "TestName"
             };
             SeedTag(tag);
-            string newtagname = "TestName";
+            var newtagname = "TestName";
             var httpContent = newtagname.ToJsonHttpContent();
             // act
             var response = await _client.PostAsync($"/api/Tag", httpContent);

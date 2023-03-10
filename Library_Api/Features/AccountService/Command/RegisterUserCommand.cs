@@ -5,6 +5,6 @@ namespace Library_Api.Features.AccountService.Command
 {
     public class RegisterUserCommand : IRequest
     {
-        public RegisterUserDto dto { get; set; }
+        public RegisterUserDto Dto { get; set; }
     }
 }

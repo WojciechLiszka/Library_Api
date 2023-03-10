@@ -19,15 +19,15 @@ namespace Library_Api.Controllers
         }
 
         [HttpPost]
-        [Route("{bookId}")]
+        [Route("{BookId}")]
         [Authorize(Roles = "Admin,Librarian")]
             [ProducesDefaultResponseType]
         public async Task<ActionResult> RentBook([FromRoute] int bookId, [FromBody] int UserId)
         {
             var request = new RentBookCommand()
             {
-                bookId = bookId,
-                userId = UserId
+                BookId = bookId,
+                UserId = UserId
             };
             await _mediator.Send(request);
             return Ok();
