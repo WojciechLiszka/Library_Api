@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Library_Api.Entity;
+﻿using Library_Api.Entity;
 using Library_Api.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +8,11 @@ namespace Library_Api.Features.Command
     public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Unit>
     {
         private readonly LibraryDbContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public UpdateBookCommandHandler(LibraryDbContext dbContext, IMapper mapper)
+        public UpdateBookCommandHandler(LibraryDbContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
+            
         }
 
         public async Task<Unit> Handle(UpdateBookCommand request, CancellationToken cancellationToken)

@@ -55,7 +55,7 @@ builder.Services.AddScoped<IValidator<RentQuery>, RentQueryValidator>();
 builder.Services.AddDbContext<LibraryDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDbConnection")));
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

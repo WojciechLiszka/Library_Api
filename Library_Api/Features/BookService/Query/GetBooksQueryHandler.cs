@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Library_Api.Entity;
+﻿using Library_Api.Entity;
 using Library_Api.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,14 +9,12 @@ namespace Library_Api.Features.Query
     public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, PagedResult<BookDto>>
     {
         private readonly LibraryDbContext _dbContext;
-        private readonly IMapper _mapper;
-
-        public GetBooksQueryHandler(LibraryDbContext dbContext, IMapper mapper)
+        
+        public GetBooksQueryHandler(LibraryDbContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
+           
         }
-
         public async Task<PagedResult<BookDto>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
             var baseQuery = _dbContext

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Library_Api.Entity;
+﻿using Library_Api.Entity;
 using Library_Api.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,7 @@ namespace Library_Api.Features.Command
         private readonly ILogger<DeleteBookCommandHandler> _logger;
         private readonly LibraryDbContext _dbContext;
 
-        public DeleteBookCommandHandler(IMapper mapper, LibraryDbContext dbContext, ILogger<DeleteBookCommandHandler> logger)
+        public DeleteBookCommandHandler( LibraryDbContext dbContext, ILogger<DeleteBookCommandHandler> logger)
         {
             _logger = logger;
             _dbContext = dbContext;

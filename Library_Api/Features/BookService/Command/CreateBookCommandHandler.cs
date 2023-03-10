@@ -1,23 +1,25 @@
-﻿using AutoMapper;
-using Library_Api.Entity;
+﻿using Library_Api.Entity;
 using MediatR;
 
 namespace Library_Api.Features.Command
 {
     public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
     {
-        private readonly IMapper _mapper;
         private readonly LibraryDbContext _dbContext;
 
-        public CreateBookCommandHandler(IMapper mapper, LibraryDbContext dbContext)
+        public CreateBookCommandHandler( LibraryDbContext dbContext)
         {
-            _mapper = mapper;
             _dbContext = dbContext;
         }
 
         public async Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            var book = _mapper.Map<Book>(request.Dto);
+            var book = new Book()
+            {
+                Tittle = request.Dto.Tittle,
+                Author = request.Dto.Author,
+                PublishDate = request.Dto.PublishDate
+            };
             await _dbContext.Books.AddAsync(book);
             await _dbContext.SaveChangesAsync();
 
