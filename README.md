@@ -1,5 +1,5 @@
 # Library_Api
-The Library_Api is a .Net6 project wich creates sample REST Api to menage web library.
+The Library_Api is a .Net6 project which creates sample REST Api to manage web library.
 # Features
 ## User
 - Login user
